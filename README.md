@@ -35,3 +35,11 @@ pip install -e .
 ```bash
 ./natas.py
 ```
+
+### Usage
+
+The script uses the click library to handle command-line options and prompts. Here are the available options:
+
+- --username or -u: Prompts for the username.
+- --password or -p: Prompts for the password.
+- --url_suffix or -url: Prompts for the URL suffix or leave empty.
