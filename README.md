@@ -12,10 +12,10 @@ This project is a Python script to help solve first levels of the [Natas wargame
 
 1. **Clone the repository:**
 
-   ```bash
-   git clone https://github.com/bodhisatva/natas-solver
-   cd natas-solver
-   ```
+```bash
+git clone https://github.com/bodhisatva/natas-solver
+cd natas-solver
+```
 
 2. **Create a virtual environment:**
 
