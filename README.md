@@ -36,7 +36,13 @@ source natas-venv/bin/activate
 pip install -e .
 ```
 
-4. **Run the script:**
+4. **Ensure the script has execute permissions:**
+
+```bash
+chmod +x verify-shasum.sh
+```
+
+5. **Run the script:**
 
 ```bash
 ./natas.py
@@ -48,4 +54,3 @@ The script uses the click library to handle command-line options and prompts. He
 
 - --username or -u: Prompts for the username.
 - --password or -p: Prompts for the password.
-- --url_suffix or -url: Prompts for the URL suffix or leave empty.
