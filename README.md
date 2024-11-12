@@ -62,3 +62,10 @@ The script uses the click library to handle command-line options and prompts. He
 To trying out different paths in a URL to find out hidden directories, select 1 when asked to enter a URL suffix and add the path. If the URL does not require manipulation, press Enter.
 
 - Enter URL suffix: <some/path>
+
+#### Custom Header
+
+To create a custom header, select 1 when prompted to enter a custom header, then enter the key and value.
+
+- Enter custom header key: <custom_key>
+- Enter custom header value: <custom_value>
