@@ -1,4 +1,4 @@
-# Natas
+# Natas Solver
 
 <br />
   <p align="center">
@@ -6,7 +6,7 @@
   </p>
 <br />
 
-This project is a Python script to help interact the first levels of the <a href="https://overthewire.org/wargames/natas/" >Natas wargame from OverTheWire</a> on the command line.
+This project is a Python script to help solve the first levels of the <a href="https://overthewire.org/wargames/natas/" >Natas wargame from OverTheWire</a> on the command line.
 
 ## Requirements
 

@@ -43,15 +43,19 @@ def print_results(prettified_html, password_sentence):
   print(f"\n{prettified_html}")
 
   if password_sentence:
-    print(f"{password_sentence[0]}\n")
+    print(f"{YELLOW}{password_sentence[0]}{GREEN}\n")
 
-option1 = f"{YELLOW}1{GREEN}"
-option2 = f"{YELLOW}ENTER{GREEN}"
+
+option1 = "1"
+option2 = "Enter"
+
+styled_option1 = f"{YELLOW}{option1}{GREEN}"
+styled_option2 = f"{YELLOW}{option2}{GREEN}"
 
 def create_url_suffix():
-  choice = click.prompt(f"Enter {option1} to add URL suffix or press {option2}", 
+  choice = click.prompt(f"Enter {styled_option1} to add URL suffix or press {styled_option2}", 
 default="")
-  if choice == "1":
+  if choice == option1:
     suffix = click.prompt("Enter URL suffix")
     print(f'\nSuffix: {suffix}')
     return suffix
@@ -59,13 +63,13 @@ default="")
     return ""
 
 def create_custom_header():
-  choice = click.prompt(f'Enter {option1} to add a custom header or press {option2}', default="")
-  if choice == "1":
+  choice = click.prompt(f'Enter {styled_option1} to add a custom header or press {styled_option2}', default="")
+  
+  if choice == option1:
     custom_header_key = click.prompt("Enter custom header key")
     custom_header_value = click.prompt("Enter custom header value")
-    custom_header_object = {custom_header_key : custom_header_value}
-
-    return custom_header_object
+  
+    return { custom_header_key : custom_header_value }
   else:
     return {}
 
