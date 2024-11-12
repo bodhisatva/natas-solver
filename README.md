@@ -16,6 +16,8 @@ This project is a Python script to help interact the first levels of the <a href
 - `beautifulsoup4` library
 - `Pygments` library
 
+## Installation
+
 1. **Clone the repository:**
 
 ```bash
@@ -39,7 +41,7 @@ pip install -e .
 4. **Ensure the script has execute permissions:**
 
 ```bash
-chmod +x verify-shasum.sh
+chmod +x natas.py
 ```
 
 5. **Run the script:**
@@ -48,9 +50,15 @@ chmod +x verify-shasum.sh
 ./natas.py
 ```
 
-### Usage
+## Usage
 
 The script uses the click library to handle command-line options and prompts. Here are the available options:
 
 - --username or -u: Prompts for the username.
 - --password or -p: Prompts for the password.
+
+#### Directory Traversal
+
+To trying out different paths in a URL to find out hidden directories, select 1 when asked to enter a URL suffix and add the path. If the URL does not require manipulation, press Enter.
+
+- Enter URL suffix: <some/path>
