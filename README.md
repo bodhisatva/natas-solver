@@ -1,6 +1,12 @@
 # Natas
 
-This project is a Python script to help solve first levels of the [Natas wargame](https://overthewire.org/wargames/natas/) from OverTheWire.
+<br />
+  <p align="center">
+<img width="204" alt="Screenshot 2024-11-12 at 10 57 05" src="https://github.com/user-attachments/assets/94d7c3d0-d7ae-41f8-abeb-61c1a133d7d1">
+  </p>
+<br />
+
+This project is a Python script to help interact the first levels of the <a href="https://overthewire.org/wargames/natas/" >Natas wargame from OverTheWire</a> on the command line.
 
 ## Requirements
 
