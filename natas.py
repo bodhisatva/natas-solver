@@ -6,7 +6,8 @@
 import click
 import requests
 import re
-from bs4 import BeautifulSoup
+import warnings
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import TerminalFormatter
@@ -14,6 +15,9 @@ from pygments.formatters import TerminalFormatter
 YELLOW='\033[33m'
 GREEN='\33[92m'
 RED='\033[31m'
+
+# supress warning related to robots.txt
+warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
 def get_response_data(username: str, password: str, url_suffix: str):
   url = f'http://{username}.natas.labs.overthewire.org/{url_suffix}'
