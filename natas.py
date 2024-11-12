@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 from pygments import highlight
 from pygments.lexers import HtmlLexer
 from pygments.formatters import TerminalFormatter
+from requests.cookies import RequestsCookieJar
 
 YELLOW='\033[33m'
 GREEN='\33[92m'
@@ -20,14 +21,21 @@ EYES_EMOJI='\U0001F440'
 # supress warning related to robots.txt
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
-def get_response_data(username: str, password: str, url_suffix: str, headers):
-  url = f'http://{username}.natas.labs.overthewire.org/{url_suffix}'
+def create_cookie(cookies: RequestsCookieJar):
+  cookie = {}
+  for field in cookies:
+    cookie[field.name] = field.value
+  return cookie
 
-  print(f'\nSending request to: http://{username}.natas.labs.overthewire.org/{YELLOW}{url_suffix}{GREEN}')
+def get_response_data(username: str, password: str, suffix: str, headers: dict):
+  url = f'http://{username}.natas.labs.overthewire.org/{suffix}'
+
+  print(f'\nSending request to: http://{username}.natas.labs.overthewire.org/{YELLOW}{suffix}{GREEN}')
   print(f'Custom header: {headers}')
 
   response = requests.get(url, auth=(username, password), headers=headers)
   status_code = response.status_code
+  cookie = create_cookie(response.cookies)
 
   if status_code != 200:
     if status_code == 401:
@@ -37,7 +45,7 @@ def get_response_data(username: str, password: str, url_suffix: str, headers):
       print(f'\n{RED}Something went wrong.{GREEN} Status code of {YELLOW}{status_code}{GREEN} returned.')
       exit(1)
   
-  return response.content.decode()
+  return response.content.decode(), cookie
 
 def print_results(prettified_html, password_sentence):
   print(f"\n{prettified_html}")
@@ -45,8 +53,7 @@ def print_results(prettified_html, password_sentence):
   if password_sentence:
     print(f"{YELLOW}{password_sentence[0]}{GREEN}\n")
 
-
-option1 = "1"
+option1 = "y"
 option2 = "Enter"
 
 styled_option1 = f"{YELLOW}{option1}{GREEN}"
@@ -73,6 +80,16 @@ def create_custom_header():
   else:
     return {}
 
+def manipulate_cookie(username, password, suffix, headers, cookie):
+  url = f'http://{username}.natas.labs.overthewire.org/{suffix}'
+  cookie_key = click.prompt("\nEnter cookie key")
+  cookie_value = click.prompt("Enter cookie value")
+
+  cookies = {cookie_key : cookie_value}
+  response = requests.get(url, auth=(username, password), headers=headers, cookies=cookies)
+  
+  return response.content.decode()
+
 print(f"\n{YELLOW}STARTING RECOINNAISSANCE{GREEN} {EYES_EMOJI}\n")
 
 @click.command()
@@ -82,7 +99,14 @@ print(f"\n{YELLOW}STARTING RECOINNAISSANCE{GREEN} {EYES_EMOJI}\n")
 def main(username: str, password: str):
   suffix = create_url_suffix()
   headers = create_custom_header()
-  html = get_response_data(username, password, suffix, headers)
+  html, cookies = get_response_data(username, password, suffix, headers)
+  
+  cookie_choice = click.prompt(f'\nEnter {styled_option1} to manipulate cookie or press {styled_option2}', default="")
+
+  if cookie_choice == option1:
+    print(f"Cookie: {cookies}")
+    html = manipulate_cookie(username, password, suffix, headers, cookies)
+
   html_content = BeautifulSoup(html, 'html.parser')
 
   prettified_html = highlight(html_content.prettify(), HtmlLexer(), TerminalFormatter())
