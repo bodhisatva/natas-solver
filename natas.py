@@ -101,11 +101,13 @@ def main(username: str, password: str):
   headers = create_custom_header()
   html, cookies = get_response_data(username, password, suffix, headers)
   
-  cookie_choice = click.prompt(f'\nEnter {styled_option1} to manipulate cookie or press {styled_option2}', default="")
+  print(f"Cookies: {cookies}")
+  
+  if cookies:
+    cookie_choice = click.prompt(f'\nEnter {styled_option1} to manipulate cookie or press {styled_option2}', default="")
 
-  if cookie_choice == option1:
-    print(f"Cookie: {cookies}")
-    html = manipulate_cookie(username, password, suffix, headers, cookies)
+    if cookie_choice == option1:
+      html = manipulate_cookie(username, password, suffix, headers, cookies)
 
   html_content = BeautifulSoup(html, 'html.parser')
 
