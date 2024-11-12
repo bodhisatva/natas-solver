@@ -28,10 +28,16 @@ def get_response_data(username: str, password: str, url_suffix: str):
   return response.content.decode()
 
 def print_response_results(prettified_html, password_sentence):
-    print(prettified_html)
-  
-    if password_sentence:
-      print(f"{password_sentence[0]}\n")
+  print(prettified_html)
+
+  if password_sentence:
+    print(f"{password_sentence[0]}\n")
+
+def create_url_suffix(url_suffix: str):
+  if url_suffix == option1:
+    return click.prompt("Enter URL suffix")
+  else:
+    return ""
 
 option1 = "1"
 option2 = "2"
@@ -39,14 +45,10 @@ option2 = "2"
 @click.command()
 @click.option('--username', '-u', prompt="Enter username")
 @click.option('--password', '-p', prompt="Enter password")
-@click.option('--url_suffix', '-url', type=click.Choice([option1, option2]), prompt="Add URL suffix or Leave empty")
+@click.option('--url_suffix', '-url', type=click.Choice([option1, option2]), prompt="1: Add URL suffix\n2: Leave empty")
 
 def main(username: str, password: str, url_suffix: str):
-  if url_suffix == option1:
-    url_suffix = click.prompt("Enter URL suffix")
-  else:
-    url_suffix = ""
-
+  url_suffix = create_url_suffix(url_suffix)
   html = get_response_data(username, password, url_suffix)
   html_content = BeautifulSoup(html, 'html.parser')
 
