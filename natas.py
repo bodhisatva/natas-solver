@@ -15,6 +15,7 @@ from pygments.formatters import TerminalFormatter
 YELLOW='\033[33m'
 GREEN='\33[92m'
 RED='\033[31m'
+EYES_EMOJI='\U0001F440'
 
 # supress warning related to robots.txt
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
@@ -54,7 +55,7 @@ default="")
   else:
     return ""
 
-print(f"\n{YELLOW}STARTING RECOINNAISSANCE{GREEN}\n")
+print(f"\n{YELLOW}STARTING RECOINNAISSANCE{GREEN} {EYES_EMOJI}\n")
 
 @click.command()
 @click.option('--username', '-u', prompt="Enter username")
