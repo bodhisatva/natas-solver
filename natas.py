@@ -20,12 +20,13 @@ EYES_EMOJI='\U0001F440'
 # supress warning related to robots.txt
 warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 
-def get_response_data(username: str, password: str, url_suffix: str):
+def get_response_data(username: str, password: str, url_suffix: str, headers):
   url = f'http://{username}.natas.labs.overthewire.org/{url_suffix}'
 
-  print(f'Sending request to: http://{username}.natas.labs.overthewire.org/{YELLOW}{url_suffix}{GREEN}')
+  print(f'\nSending request to: http://{username}.natas.labs.overthewire.org/{YELLOW}{url_suffix}{GREEN}')
+  print(f'Custom header: {headers}')
 
-  response = requests.get(url, auth=(username, password))
+  response = requests.get(url, auth=(username, password), headers=headers)
   status_code = response.status_code
 
   if status_code != 200:
@@ -44,9 +45,11 @@ def print_results(prettified_html, password_sentence):
   if password_sentence:
     print(f"{password_sentence[0]}\n")
 
+option1 = f"{YELLOW}1{GREEN}"
+option2 = f"{YELLOW}ENTER{GREEN}"
 
 def create_url_suffix():
-  choice = click.prompt(f"Enter {YELLOW}1{GREEN} to add URL suffix or press {YELLOW}ENTER{GREEN}", 
+  choice = click.prompt(f"Enter {option1} to add URL suffix or press {option2}", 
 default="")
   if choice == "1":
     suffix = click.prompt("Enter URL suffix")
@@ -54,6 +57,17 @@ default="")
     return suffix
   else:
     return ""
+
+def create_custom_header():
+  choice = click.prompt(f'Enter {option1} to add a custom header or press {option2}', default="")
+  if choice == "1":
+    custom_header_key = click.prompt("Enter custom header key")
+    custom_header_value = click.prompt("Enter custom header value")
+    custom_header_object = {custom_header_key : custom_header_value}
+
+    return custom_header_object
+  else:
+    return {}
 
 print(f"\n{YELLOW}STARTING RECOINNAISSANCE{GREEN} {EYES_EMOJI}\n")
 
@@ -63,7 +77,8 @@ print(f"\n{YELLOW}STARTING RECOINNAISSANCE{GREEN} {EYES_EMOJI}\n")
 
 def main(username: str, password: str):
   suffix = create_url_suffix()
-  html = get_response_data(username, password, suffix)
+  headers = create_custom_header()
+  html = get_response_data(username, password, suffix, headers)
   html_content = BeautifulSoup(html, 'html.parser')
 
   prettified_html = highlight(html_content.prettify(), HtmlLexer(), TerminalFormatter())
