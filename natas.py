@@ -22,6 +22,8 @@ warnings.filterwarnings("ignore", category=MarkupResemblesLocatorWarning)
 def get_response_data(username: str, password: str, url_suffix: str):
   url = f'http://{username}.natas.labs.overthewire.org/{url_suffix}'
 
+  print(f'Sending request to: http://{username}.natas.labs.overthewire.org/{YELLOW}{url_suffix}{YELLOW}')
+
   response = requests.get(url, auth=(username, password))
   status_code = response.status_code
 
@@ -47,6 +49,7 @@ def create_url_suffix():
 default="")
   if choice == "1":
     suffix = click.prompt("Enter URL suffix")
+    print(f'\nSuffix: {suffix}')
     return suffix
   else:
     return ""
