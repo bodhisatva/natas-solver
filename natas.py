@@ -54,14 +54,14 @@ def print_results(prettified_html, password_sentence):
     print(f"{YELLOW}{password_sentence[0]}{GREEN}\n")
 
 option1 = "y"
-option2 = "Enter"
+option2 = "n"
 
 styled_option1 = f"{YELLOW}{option1}{GREEN}"
 styled_option2 = f"{YELLOW}{option2}{GREEN}"
 
 def create_url_suffix():
-  choice = click.prompt(f"Enter {styled_option1} to add URL suffix or press {styled_option2}", 
-default="")
+  choice = click.prompt(f"Enter {styled_option1} to add URL suffix or press {styled_option2} to continue", 
+default=option2)
   if choice == option1:
     suffix = click.prompt("Enter URL suffix")
     print(f'\nSuffix: {suffix}')
@@ -70,7 +70,7 @@ default="")
     return ""
 
 def create_custom_header():
-  choice = click.prompt(f'Enter {styled_option1} to add a custom header or press {styled_option2}', default="")
+  choice = click.prompt(f'Enter {styled_option1} to add a custom header or press {styled_option2} to continue', default=option2)
   
   if choice == option1:
     custom_header_key = click.prompt("Enter custom header key")
@@ -80,7 +80,7 @@ def create_custom_header():
   else:
     return {}
 
-def manipulate_cookie(username, password, suffix, headers, cookie):
+def manipulate_cookie(username, password, suffix, headers, cookies):
   url = f'http://{username}.natas.labs.overthewire.org/{suffix}'
   cookie_key = click.prompt("\nEnter cookie key")
   cookie_value = click.prompt("Enter cookie value")
@@ -104,7 +104,7 @@ def main(username: str, password: str):
   print(f"Cookies: {cookies}")
   
   if cookies:
-    cookie_choice = click.prompt(f'\nEnter {styled_option1} to manipulate cookie or press {styled_option2}', default="")
+    cookie_choice = click.prompt(f'\nFound a cookie. Enter {styled_option1} to manipulate cookie or press {styled_option2} to continue', default=option2)
 
     if cookie_choice == option1:
       html = manipulate_cookie(username, password, suffix, headers, cookies)
