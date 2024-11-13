@@ -60,8 +60,7 @@ styled_option1 = f"{YELLOW}{option1}{GREEN}"
 styled_option2 = f"{YELLOW}{option2}{GREEN}"
 
 def create_url_suffix():
-  choice = click.prompt(f"Enter {styled_option1} to add URL suffix or press {styled_option2} to continue", 
-default=option2)
+  choice = click.prompt(f"Enter {styled_option1} to add URL suffix or press {styled_option2} to continue", default=option2)
   if choice == option1:
     suffix = click.prompt("Enter URL suffix")
     print(f'\nSuffix: {suffix}')
@@ -104,7 +103,7 @@ def main(username: str, password: str):
   print(f"Cookies: {cookies}")
   
   if cookies:
-    cookie_choice = click.prompt(f'\nFound a cookie. Enter {styled_option1} to manipulate cookie or press {styled_option2} to continue', default=option2)
+    cookie_choice = click.prompt(f'\nFound a cookie. Enter {styled_option1} to manipulate the cookie or press {styled_option2} to continue', default=option2)
 
     if cookie_choice == option1:
       html = manipulate_cookie(username, password, suffix, headers, cookies)
